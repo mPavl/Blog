@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+    {% if current_user.is_authenticated %}
+        <h1>Welcome, {{ current_user.username }}!</h1>
+    {% elif name %}
+        <h1>Hello, {{ name }}!</h1>
+    {% else %}
+        <h1>Welcome, friend!</h1>
+            <p>Please <a href="{{ url_for('register') }}">Register</a> or <a href="{{ url_for('login') }}">Login</a> or Enter:
+                <form method=POST enctype=multipart/form-data action="{{ url_for('hello_world') }}">
+                    <input type="text" placeholder="Enter your name" name="username">
+                    <button type="submit">Submit!</button>
+                </form> </p>   
+{% endif %} 
+
+    {% if current_user.is_authenticated or name%} 
+        <form method=POST enctype=multipart/form-data action="{{ url_for('upload') }}">
+            <input type=file name=photo>
+            <button type="submit">Submit!</button>
+        </form>
+
+        <p>Please add the post</p>
+            <form method=POST enctype=multipart/form-data action="{{ url_for('post') }}">
+                <p>What new:<input type="text" name=post></p>
+                <button type="submit">Submit!</button>
+            </form>
+    {% endif %}
+
+{% endblock %}

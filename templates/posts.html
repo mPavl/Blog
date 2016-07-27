@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<h1>Posts {{ current_user.username }}</h1>
+    <a href="/post">Back to post</a>
+        <p><strong>Last Posts</strong>
+            {% for post in posts %}
+                <h4><a href="/post/{{ post.slug }}">{{ post.title }}</a></h4>
+                <small>{{ post.date|date_format }}</small>                     
+            {% endfor %}        
+       </p>
+ 
+        <footer>
+            <small>
+                Add <a href="/upload">new post</a>.
+             </small>
+        </footer>
+{% endblock %}

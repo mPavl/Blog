@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+   {% if current_user.is_authenticated %}
+        <h1>Welcome, {{ current_user.username }}!</h1>
+    {% else %}
+        <h1>Hello, {{ name }}!</h1>
+{% endif %} 
+    <img src="static/img/{{ filename }}" />
+    <a href="/upload">&larr; Back to /</a>
+
+{% if post %}
+    <p>{{ post }}</p>
+{% else %}
+    <p>Please add the post</p>
+        <form method=POST enctype=multipart/form-data action="{{ url_for('post') }}">
+            <p>What new:<input type="text" name=post></p>
+            <button type="submit">Submit!</button>
+        </form>
+{% endif %} 
+
+{% endblock %}
+
